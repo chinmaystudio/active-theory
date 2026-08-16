@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { ITSA3DLogo } from './components/ITSA3DLogo';
 
 const ACTIVE_THEORY_CONFIG = {
   cacheKey: '1746999829739', // 原站构建缓存号，用于定位完全一致的 JS bundle。
@@ -77,6 +76,7 @@ export default function App() {
     ensureScript(ACTIVE_THEORY_CONFIG.analyticsScriptId, ACTIVE_THEORY_CONFIG.analyticsScriptPath);
   }, []);
 
-  return <ITSA3DLogo />;
+  return null;
 }
+
 
