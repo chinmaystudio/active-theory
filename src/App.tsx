@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 
 const ACTIVE_THEORY_CONFIG = {
   cacheKey: '1746999829739', // 原站构建缓存号，用于定位完全一致的 JS bundle。
-  appScriptPath: '/assets/js/app.1746999829739.js', // 原站核心 WebGL 与页面动效入口。
+  appScriptPath: 'assets/js/app.1746999829739.js', // 原站核心 WebGL 与页面动效入口。
   preloadLinkId: 'active-theory-app-preload', // 预加载标签 ID，避免 React 热更新重复创建。
   appScriptId: 'active-theory-app-script', // 主脚本标签 ID，避免重复执行原站 bundle。
   analyticsScriptId: 'active-theory-analytics-script', // 统计脚本标签 ID，保持原站加载顺序。
-  analyticsScriptPath: '/vendor/www.googletagmanager.com/gtag/js_id=G-J7TMDT4F8N', // 本地化后的 Google Tag 脚本路径。
+  analyticsScriptPath: 'vendor/www.googletagmanager.com/gtag/js_id=G-J7TMDT4F8N', // 本地化后的 Google Tag 脚本路径。
   analyticsId: 'G-J7TMDT4F8N', // 原站统计 ID，仅用于复刻原始运行环境。
-  unsupportedPage: '/unsupported.html', // 原站低版本浏览器兜底页。
-  uilStaticPath: '/assets/data/uil.1746999829739.json', // 原站静态 UI 数据文件。
+  unsupportedPage: 'unsupported.html', // 原站低版本浏览器兜底页。
+  uilStaticPath: 'assets/data/uil.1746999829739.json', // 原站静态 UI 数据文件。
 } as const;
 
 declare global {
