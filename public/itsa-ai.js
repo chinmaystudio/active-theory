@@ -88,6 +88,9 @@
 
   function detect(query) {
     const text = query.toLowerCase();
+    if (/hackathon|competition|compete|challenge|7-day/.test(text)) return 'competitions';
+    if (/workshop|event|session|attend/.test(text)) return 'events';
+    if (/project|prototype|dataset|build an app/.test(text)) return 'projects';
     let best = 'learning'; let score = 0;
     Object.entries(keywordMap).forEach(([key, words]) => {
       const next = words.reduce((n, word) => n + (text.includes(word) ? 1 : 0), 0);
@@ -97,9 +100,10 @@
     return best;
   }
 
-  function renderCategory(key, query) {
+  function renderCategory(key, query, result = {}) {
     const category = categories[key];
-    output.innerHTML = `<div class="itsa-ai-response-label">MATCH FOUND · ${category.label}</div><div class="itsa-ai-response-title">${category.intro}</div><div style="color:rgba(233,251,255,.56);margin-bottom:8px">QUERY: ${escapeHtml(query).toUpperCase()}</div><ul class="itsa-ai-list">${category.items.map(item => `<li>${item}</li>`).join('')}</ul><button class="itsa-ai-action" data-category="${key}" type="button">${category.action} →</button>`;
+    const items = Array.isArray(result.recommendations) && result.recommendations.length ? result.recommendations : category.items;
+    output.innerHTML = `<div class="itsa-ai-response-label">${result.mode === 'llm' ? 'AI MATCH' : 'MATCH FOUND'} · ${category.label}</div><div class="itsa-ai-response-title">${escapeHtml(result.title || category.intro)}</div><div style="color:rgba(233,251,255,.56);margin-bottom:8px">${escapeHtml(result.rationale || `QUERY: ${query}`).toUpperCase()}</div><ul class="itsa-ai-list">${items.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul><button class="itsa-ai-action" data-category="${key}" type="button">${escapeHtml(result.action || category.action)} →</button>`;
     output.querySelector('.itsa-ai-action').addEventListener('click', () => {
       const link = [...document.querySelectorAll('a')].find(a => a.textContent.toLowerCase().includes(category.label.toLowerCase().split(' ')[0]));
       if (link) link.click();
@@ -107,16 +111,25 @@
     });
   }
 
-  function respond(raw) {
+  async function respond(raw) {
     const query = raw.trim();
     if (!query) return;
     input.value = '';
-    const key = detect(query);
-    if (!key) {
-      output.innerHTML = '<div class="itsa-ai-response-label">ITSA IN ONE SIGNAL</div><div class="itsa-ai-response-title">A TECHNOLOGY COMMUNITY FOR YOUR NEXT STEP.</div><div class="itsa-ai-welcome">ITSA HELPS STUDENTS DISCOVER EVENTS, BUILD PROJECTS, FIND TECH COMMUNITIES, COMPETE AND GROW PRACTICAL SKILLS.</div><br><button class="itsa-ai-action" type="button">EXPLORE THE FIVE PATHS →</button>';
-      return;
+    output.innerHTML = '<div class="itsa-ai-response-label">READING YOUR SIGNAL...</div><div class="itsa-ai-welcome">MATCHING YOUR INTERESTS TO THE ITSA KNOWLEDGE LAYER.</div>';
+    try {
+      const response = await fetch('./api/itsa-guide', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ query }) });
+      if (!response.ok) throw new Error('guide unavailable');
+      const result = await response.json();
+      if (result.category && categories[result.category]) {
+        renderCategory(result.category, query, result);
+      } else {
+        output.innerHTML = `<div class="itsa-ai-response-label">ITSA IN ONE SIGNAL</div><div class="itsa-ai-response-title">${escapeHtml(result.title || 'A TECHNOLOGY COMMUNITY FOR YOUR NEXT STEP.')}</div><div class="itsa-ai-welcome">${escapeHtml(result.rationale || 'ITSA HELPS STUDENTS DISCOVER EVENTS, BUILD PROJECTS, FIND TECH COMMUNITIES, COMPETE AND GROW PRACTICAL SKILLS.')}</div><br><button class="itsa-ai-action" type="button">EXPLORE THE FIVE PATHS →</button>`;
+      }
+    } catch (_) {
+      const key = detect(query);
+      if (key) renderCategory(key, query);
+      else output.innerHTML = '<div class="itsa-ai-response-label">ITSA IN ONE SIGNAL</div><div class="itsa-ai-response-title">A TECHNOLOGY COMMUNITY FOR YOUR NEXT STEP.</div><div class="itsa-ai-welcome">ITSA HELPS STUDENTS DISCOVER EVENTS, BUILD PROJECTS, FIND TECH COMMUNITIES, COMPETE AND GROW PRACTICAL SKILLS.</div>';
     }
-    renderCategory(key, query);
   }
 
   root.querySelector('.itsa-ai-form').addEventListener('submit', event => { event.preventDefault(); respond(input.value); });
