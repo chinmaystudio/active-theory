@@ -44,7 +44,7 @@
 
   (window.ITSA_CONTENT?.sections || []).forEach(section => {
     if (!categories[section.id]) return;
-    Object.assign(categories[section.id], { label: section.label, intro: section.shortDescription, items: section.tags, action: section.aiActions[0], media: section.media, source: section.source, timeline: section.timeline, dna: section.dna });
+    Object.assign(categories[section.id], { label: section.label, intro: section.shortDescription, items: section.tags, action: section.aiActions[0], media: section.media.map(item => [item.src, item.caption]), source: section.source, timeline: section.timeline, dna: section.dna });
   });
 
   const suggestions = ['WHAT IS ITSA?', 'I LIKE AI AND CYBERSECURITY', 'SHOW ME PROJECTS', 'I AM A FIRST YEAR STUDENT'];
