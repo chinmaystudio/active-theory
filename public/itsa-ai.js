@@ -5,36 +5,41 @@
       color: '#00f3ff',
       intro: 'LEARN. CONNECT. EXPERIMENT.',
       items: ['AI / ML WORKSHOPS', 'WEB DEVELOPMENT SESSIONS', 'HANDS-ON PROJECT BUILDS', 'TECHNICAL COMMUNITY MEETS'],
-      action: 'FIND AN EVENT FOR ME'
+      action: 'FIND AN EVENT FOR ME',
+      media: [['assets/media/itsa/student-activity-circle.jpg', 'STUDENT ACTIVITY'], ['assets/media/itsa/itsa-student-team.jpg', 'ITSA TEAM'], ['assets/media/itsa/student-awards-group.jpg', 'RECOGNITION']]
     },
     projects: {
       label: 'PROJECTS & INNOVATION',
       color: '#00a8ff',
       intro: 'IDEAS BECOME WORKING SYSTEMS.',
       items: ['AI / DATA PROJECTS', 'WEB AND APP BUILDS', 'CYBERSECURITY CHALLENGES', 'PROTOTYPE SPRINTS'],
-      action: 'GENERATE A PROJECT IDEA'
+      action: 'GENERATE A PROJECT IDEA',
+      media: [['assets/media/itsa/praxis-student-team.jpg', 'PRAXIS TEAM'], ['assets/media/itsa/praxis-group-banner.webp', 'PROJECT COMMUNITY'], ['assets/media/itsa/student-activity-circle.jpg', 'BUILD TOGETHER']]
     },
     communities: {
       label: 'TECH COMMUNITIES',
       color: '#9d63ff',
       intro: 'FIND PEOPLE WHO ARE BUILDING WHAT YOU WANT TO LEARN.',
       items: ['AI / ML', 'WEB DEVELOPMENT', 'CYBERSECURITY', 'APP DEVELOPMENT', 'DATA + CLOUD'],
-      action: 'BUILD MY ITSA TECH PROFILE'
+      action: 'BUILD MY ITSA TECH PROFILE',
+      media: [['assets/media/itsa/itsa-student-team.jpg', 'ITSA COMMUNITY'], ['assets/media/itsa/student-activity-circle.jpg', 'TECH CIRCLE'], ['assets/media/itsa/student-awards-group.jpg', 'STUDENT LEADERS']]
     },
     competitions: {
       label: 'COMPETITIONS & HACKATHONS',
       color: '#00ff88',
       intro: 'BUILD UNDER PRESSURE. SOLVE PROBLEMS. COMPETE.',
       items: ['HACKATHON STARTER PATH', 'TEAM-FINDING PROMPTS', 'PROBLEM-SOLVING SPRINTS', 'PITCH + DEMO PREPARATION'],
-      action: 'START A 7-DAY PREP PLAN'
+      action: 'START A 7-DAY PREP PLAN',
+      media: [['assets/media/itsa/praxis-student-team.jpg', 'PRAXIS'], ['assets/media/itsa/student-awards-group.jpg', 'TEAM MILESTONE'], ['assets/media/itsa/itsa-student-team.jpg', 'COLLABORATE']]
     },
     learning: {
       label: 'LEARNING & SKILLS',
       color: '#ff36a5',
       intro: 'BUILD SKILLS THAT EXTEND BEYOND THE CLASSROOM.',
       items: ['WEB DEVELOPMENT FOUNDATIONS', 'AI / MACHINE LEARNING BASICS', 'CYBERSECURITY PRACTICE', 'PROJECT-BASED LEARNING'],
-      action: 'CREATE MY LEARNING PATH'
-    }
+      action: 'CREATE MY LEARNING PATH',
+      media: [['assets/media/itsa/student-activity-circle.jpg', 'LEARNING COMMUNITY'], ['assets/media/itsa/itsa-student-team.jpg', 'PEER LEARNING'], ['assets/media/itsa/praxis-group-banner.webp', 'TECH EXPERIENCE']]
+    },
   };
 
   const suggestions = ['WHAT IS ITSA?', 'I LIKE AI AND CYBERSECURITY', 'SHOW ME PROJECTS', 'I AM A FIRST YEAR STUDENT'];
@@ -103,7 +108,8 @@
   function renderCategory(key, query, result = {}) {
     const category = categories[key];
     const items = Array.isArray(result.recommendations) && result.recommendations.length ? result.recommendations : category.items;
-    output.innerHTML = `<div class="itsa-ai-response-label">${result.mode === 'llm' ? 'AI MATCH' : 'MATCH FOUND'} · ${category.label}</div><div class="itsa-ai-response-title">${escapeHtml(result.title || category.intro)}</div><div style="color:rgba(233,251,255,.56);margin-bottom:8px">${escapeHtml(result.rationale || `QUERY: ${query}`).toUpperCase()}</div><ul class="itsa-ai-list">${items.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul><button class="itsa-ai-action" data-category="${key}" type="button">${escapeHtml(result.action || category.action)} →</button>`;
+    const media = category.media.map(([src, caption]) => `<figure><img src="./${src}" alt="${escapeHtml(caption)} — PCCOE ITSA" loading="lazy"><figcaption>${escapeHtml(caption)}</figcaption></figure>`).join('');
+    output.innerHTML = `<div class="itsa-ai-response-label">${result.mode === 'llm' ? 'AI MATCH' : 'MATCH FOUND'} · ${category.label}</div><div class="itsa-ai-response-title">${escapeHtml(result.title || category.intro)}</div><div style="color:rgba(233,251,255,.56);margin-bottom:8px">${escapeHtml(result.rationale || `QUERY: ${query}`).toUpperCase()}</div><ul class="itsa-ai-list">${items.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul><div class="itsa-ai-media">${media}</div><div class="itsa-ai-source">AUTHENTIC PCCOE / ITSA MEDIA · <a href="https://it.pccoepune.com/itsa-event" target="_blank" rel="noreferrer">OFFICIAL ITSA EVENTS</a> · <a href="https://it.pccoepune.com/stud-activities" target="_blank" rel="noreferrer">STUDENT ACTIVITIES</a></div><button class="itsa-ai-action" data-category="${key}" type="button">${escapeHtml(result.action || category.action)} →</button>`;
     output.querySelector('.itsa-ai-action').addEventListener('click', () => {
       const link = [...document.querySelectorAll('a')].find(a => a.textContent.toLowerCase().includes(category.label.toLowerCase().split(' ')[0]));
       if (link) link.click();
