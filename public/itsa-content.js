@@ -1,0 +1,21 @@
+window.ITSA_CONTENT = {
+  version: '2026.08',
+  sourcePolicy: 'Official PCCOE ITSA and IT Department pages are the preferred source for current event and activity context.',
+  sections: [
+    {
+      id: 'events', label: 'EVENTS & WORKSHOPS', eyebrow: 'ITSA / COMMUNITY', title: 'EVENTS & WORKSHOPS', shortDescription: 'LEARN IN PUBLIC. BUILD WITH PEOPLE.', description: 'TECHNICAL EVENTS, HANDS-ON WORKSHOPS, INDUCTIONS, SESSIONS AND COMMUNITY ACTIVITIES THAT TURN CURIOSITY INTO EXPERIENCE.', tags: ['WORKSHOPS','TECH TALKS','INDUCTION','HANDS-ON','COMMUNITY'], aiActions: ['FIND AN EVENT FOR ME','WHAT SHOULD I ATTEND?','WHAT SHOULD I PREPARE?','BUILD ME A PREP PLAN'], timeline: ['QUESTION','SESSION','EXPERIMENT','SHARE'], dna: ['COMMUNITY','HANDS-ON','TECHNICAL'], media: [['assets/media/itsa/student-activity-circle.jpg','STUDENT ACTIVITY'],['assets/media/itsa/itsa-student-team.jpg','ITSA TEAM'],['assets/media/itsa/student-awards-group.jpg','RECOGNITION']], source: 'https://it.pccoepune.com/itsa-event'
+    },
+    {
+      id: 'projects', label: 'PROJECTS & INNOVATION', eyebrow: 'BUILD / EXPERIMENT', title: 'PROJECTS & INNOVATION', shortDescription: 'IDEAS BECOME WORKING SYSTEMS.', description: 'FROM FIRST PROTOTYPE TO REAL DEMO, ITSA IS A SPACE TO EXPERIMENT, BUILD, COLLABORATE AND SOLVE.', tags: ['AI','WEB','CYBER','IOT','APP DEV','DATA'], aiActions: ['GENERATE A PROJECT IDEA','FIND A PROJECT FOR ME','BUILD A PROJECT ROADMAP'], timeline: ['PROBLEM','IDEA','TECH STACK','BUILD','RESULT'], dna: ['AI','PYTHON','REACT','FASTAPI','DATA'], media: [['assets/media/itsa/praxis-student-team.jpg','PRAXIS TEAM'],['assets/media/itsa/praxis-group-banner.webp','PROJECT COMMUNITY'],['assets/media/itsa/student-activity-circle.jpg','BUILD TOGETHER']], source: 'https://it.pccoepune.com/stud-activities'
+    },
+    {
+      id: 'communities', label: 'TECH COMMUNITIES', eyebrow: 'PEOPLE / DOMAINS', title: 'TECH COMMUNITIES', shortDescription: 'FIND PEOPLE WHO BUILD WHAT YOU WANT TO LEARN.', description: 'CONNECT WITH STUDENTS AND MENTORS AROUND AI, WEB DEVELOPMENT, CYBERSECURITY, CLOUD, DATA, IOT AND EMERGING TECHNOLOGY.', tags: ['AI / ML','WEB DEVELOPMENT','CYBERSECURITY','CLOUD','DATA','IOT'], aiActions: ['BUILD MY ITSA TECH PROFILE','WHO SHOULD I LEARN WITH?','FIND A COMMUNITY'], timeline: ['INTEREST','PEOPLE','PRACTICE','BELONG'], dna: ['PEERS','DOMAINS','MENTORS'], media: [['assets/media/itsa/itsa-student-team.jpg','ITSA COMMUNITY'],['assets/media/itsa/student-activity-circle.jpg','TECH CIRCLE'],['assets/media/itsa/student-awards-group.jpg','STUDENT LEADERS']], source: 'https://it.pccoepune.com/stud-activities'
+    },
+    {
+      id: 'competitions', label: 'COMPETITIONS & HACKATHONS', eyebrow: 'CHALLENGE / SHIP', title: 'COMPETITIONS & HACKATHONS', shortDescription: 'BUILD UNDER PRESSURE. SOLVE PROBLEMS. COMPETE.', description: 'CHALLENGE-BASED EXPERIENCES THAT TURN KNOWLEDGE INTO PRACTICAL SKILLS, TEAMWORK AND DEMOS.', tags: ['HACKATHONS','PROBLEM SOLVING','TEAMWORK','PITCHING','DEMOS'], aiActions: ['START A 7-DAY PREP PLAN','FIND A TEAM PATH','WHAT SHOULD I BUILD?'], timeline: ['PROMPT','TEAM','SPRINT','DEMO','REFLECT'], dna: ['PROBLEM','TEAM','SHIP'], media: [['assets/media/itsa/praxis-student-team.jpg','PRAXIS'],['assets/media/itsa/student-awards-group.jpg','TEAM MILESTONE'],['assets/media/itsa/itsa-student-team.jpg','COLLABORATE']], source: 'https://it.pccoepune.com/itsa-event'
+    },
+    {
+      id: 'learning', label: 'LEARNING & SKILLS', eyebrow: 'GROW / PRACTICE', title: 'LEARNING & SKILLS', shortDescription: 'BUILD SKILLS THAT EXTEND BEYOND THE CLASSROOM.', description: 'PRACTICE REAL TOOLS, EXPLORE TECHNOLOGIES, LEARN WITH PEERS AND GROW AS A TECHNOLOGY PROFESSIONAL.', tags: ['WEB','AI / ML','CYBERSECURITY','CLOUD','PROJECTS'], aiActions: ['CREATE MY LEARNING PATH','WHAT SHOULD I LEARN THIS MONTH?','START WITH WEB DEVELOPMENT'], timeline: ['CURIOSITY','FOUNDATION','PRACTICE','PROJECT'], dna: ['FOUNDATIONS','PRACTICE','GROWTH'], media: [['assets/media/itsa/student-activity-circle.jpg','LEARNING COMMUNITY'],['assets/media/itsa/itsa-student-team.jpg','PEER LEARNING'],['assets/media/itsa/praxis-group-banner.webp','TECH EXPERIENCE']], source: 'https://it.pccoepune.com/stud-activities'
+    }
+  ]
+};

@@ -42,6 +42,11 @@
     },
   };
 
+  (window.ITSA_CONTENT?.sections || []).forEach(section => {
+    if (!categories[section.id]) return;
+    Object.assign(categories[section.id], { label: section.label, intro: section.shortDescription, items: section.tags, action: section.aiActions[0], media: section.media, source: section.source, timeline: section.timeline, dna: section.dna });
+  });
+
   const suggestions = ['WHAT IS ITSA?', 'I LIKE AI AND CYBERSECURITY', 'SHOW ME PROJECTS', 'I AM A FIRST YEAR STUDENT'];
   const keywordMap = {
     events: ['event', 'workshop', 'session', 'attend', 'activity', 'learn this month'],
@@ -109,7 +114,7 @@
     const category = categories[key];
     const items = Array.isArray(result.recommendations) && result.recommendations.length ? result.recommendations : category.items;
     const media = category.media.map(([src, caption]) => `<figure><img src="./${src}" alt="${escapeHtml(caption)} — PCCOE ITSA" loading="lazy"><figcaption>${escapeHtml(caption)}</figcaption></figure>`).join('');
-    output.innerHTML = `<div class="itsa-ai-response-label">${result.mode === 'llm' ? 'AI MATCH' : 'MATCH FOUND'} · ${category.label}</div><div class="itsa-ai-response-title">${escapeHtml(result.title || category.intro)}</div><div style="color:rgba(233,251,255,.56);margin-bottom:8px">${escapeHtml(result.rationale || `QUERY: ${query}`).toUpperCase()}</div><ul class="itsa-ai-list">${items.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul><div class="itsa-ai-media">${media}</div><div class="itsa-ai-source">AUTHENTIC PCCOE / ITSA MEDIA · <a href="https://it.pccoepune.com/itsa-event" target="_blank" rel="noreferrer">OFFICIAL ITSA EVENTS</a> · <a href="https://it.pccoepune.com/stud-activities" target="_blank" rel="noreferrer">STUDENT ACTIVITIES</a></div><button class="itsa-ai-action" data-category="${key}" type="button">${escapeHtml(result.action || category.action)} →</button>`;
+    output.innerHTML = `<div class="itsa-ai-response-label">${result.mode === 'llm' ? 'AI MATCH' : 'MATCH FOUND'} · ${category.label}</div><div class="itsa-ai-response-title">${escapeHtml(result.title || category.intro)}</div><div style="color:rgba(233,251,255,.56);margin-bottom:8px">${escapeHtml(result.rationale || `QUERY: ${query}`).toUpperCase()}</div><ul class="itsa-ai-list">${items.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul><div class="itsa-ai-trace">${(category.timeline || []).map((step, index) => `<span><b>0${index + 1}</b>${escapeHtml(step)}</span>`).join('<em>↓</em>')}</div><div class="itsa-ai-dna"><small>ITSA SIGNAL</small>${(category.dna || []).map(tag => `<i>${escapeHtml(tag)}</i>`).join('')}</div><div class="itsa-ai-media">${media}</div><div class="itsa-ai-source">AUTHENTIC PCCOE / ITSA MEDIA · <a href="https://it.pccoepune.com/itsa-event" target="_blank" rel="noreferrer">OFFICIAL ITSA EVENTS</a> · <a href="https://it.pccoepune.com/stud-activities" target="_blank" rel="noreferrer">STUDENT ACTIVITIES</a></div><button class="itsa-ai-action" data-category="${key}" type="button">${escapeHtml(result.action || category.action)} →</button>`;
     output.querySelector('.itsa-ai-action').addEventListener('click', () => {
       const link = [...document.querySelectorAll('a')].find(a => a.textContent.toLowerCase().includes(category.label.toLowerCase().split(' ')[0]));
       if (link) link.click();
